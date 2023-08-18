@@ -1,0 +1,73 @@
+// from codility demo.
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <set>
+
+using namespace std;
+/*
+    my algo: 
+        discard negatives below 1.
+        have min, max, max-min = range,
+        sort,
+        make hashmap array? reduce duplicates.
+        check if #'s in range (from array)
+        if no gap, max + 1 
+        else return gap
+*/
+
+int solution(vector<int> &A) {
+    
+    vector<int> B = A; // copy 
+
+    int size = A.size(), gap=0;
+    int max, min, range; // postive only
+    //sort for calculations
+    sort(B.begin(), B.end()); 
+    //  for (int i = 0; i < size; i++) cout << B[i] << " ";   cout << endl;
+    // get max/min!
+    max = *max_element(B.begin(), B.end());
+    min = *min_element(B.begin(), B.end());
+    std::cout << "max: " << max << " min: " << min << endl; 
+    
+    set <int> s;
+    set <int>::iterator it;
+    
+    for (int x : B) { // take away duplicates
+        s.insert(x);
+    }
+    
+    int flag = 0;
+    // if negative , case where all array is negative? 
+    for (it = s.begin(); it != s.end(); it++){
+        if (*it < 0) gap=1; //default to 1 
+    }
+    
+    for (int j = 1; j < max; j++){
+    
+        if (s.find(j) == s.end()){
+            gap = 0; // no gap
+        }
+        else {
+            flag = 1; // all #'s are conscutive order, so max+1
+        }
+        
+     
+    }
+    
+    if (flag) gap = max;
+    
+    
+    return gap+1; 
+}
+
+int main() {
+    
+    vector <int> A = {1,2,3}; //->4, A=[-1,3] -> 1, A = [1,2,1,3,4,6] -> 5
+    
+    int c = solution(A);
+    
+    cout << "sol: " <<  c << endl;
+    
+    return 0;
+}

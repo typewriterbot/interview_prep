@@ -40,24 +40,24 @@ int solution(vector<int> &A) {
     int flag = 0;
     // if negative , case where all array is negative? 
     for (it = s.begin(); it != s.end(); it++){
-        if (*it < 0) gap=1; //default to 1 
+        if (*it < 0) {
+            gap=1;
+            
+            return gap; //default to 1 
+        }
     }
     
-    for (int j = 1; j < max; j++){
+    for (int j = 1; j < max; j++) {
     
-        if (s.find(j) == s.end()){
-            gap = 0; // no gap
+        if (s.find(j) == s.end()) {
+            gap = j-1; // no gap
         }
         else {
-            flag = 1; // all #'s are conscutive order, so max+1
+            gap = max;
         }
         
-     
     }
-    
-    if (flag) gap = max;
-    
-    
+    cout << "gap: " << gap << endl;
     return gap+1; 
 }
 

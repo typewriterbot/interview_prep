@@ -1,0 +1,45 @@
+#include <algorithm>
+#include <stdlib.h>
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+/*
+    grabs the largest gap 
+*/
+int binary_gap(int N) {
+    if (N < 0 || N > 2147483647) {
+        cout << "ERROR: not an int!" << endl;    
+        return 0;
+    }
+    
+    vector <int> holdValues;
+    string s = to_string(N); // convert to string
+    int i = 1, gap=0, totalCount, tmp;
+    // start at 1 since s[0] = 1 implied
+    while (s[i] != '\0') {
+        
+        if (s[i] == '1') {
+            tmp = gap;
+            holdValues.push_back(tmp);
+            gap = 0;
+        }
+        else if (s[i] == '0') {
+            gap++;
+        }
+        i++;
+    }
+    totalCount = *max_element(holdValues.begin(), holdValues.end());
+    return totalCount;
+}
+
+int main()
+{
+    int binary = 1001001; // 1001->2, 1111->0, 110101101->1, 10001001
+    
+    int result = binary_gap(binary);
+    cout << "Result: " << result << endl; 
+
+    return 0;
+}

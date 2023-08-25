@@ -1,0 +1,33 @@
+#include <set>
+
+class Solution {
+
+public:
+    int removeDuplicates(vector<int>& nums) {
+        
+        int value;
+        std::set <int> unique;
+        vector <int> removed = nums;
+
+        for (vector <int>::iterator it = removed.begin(); it!=removed.end(); it++){ 
+            int t = *it;
+            unique.insert(t);
+            nums.pop_back(); 
+        }
+        
+        for (auto it2 : unique) {
+            std::cout << it2 << std::endl;
+            nums.push_back(it2); 
+        }
+            
+        value = unique.size();
+
+        std::cout << "value: " << value << std::endl; 
+        std::cout << "\n Vector removed: " << endl; 
+        for (auto it3 : removed) {
+            std::cout << it3 << " ";
+        }
+
+        return value;
+    }
+};
